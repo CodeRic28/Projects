@@ -1,11 +1,11 @@
 
 def brac(exp):
-    if "(" in exp:
+    while exp.find('(') != -1:
         par_pos1 = exp.find('(')
         par_pos2 = exp.find(')', par_pos1)
         par_exp = exp[par_pos1 + 1:par_pos2]
         exp = exp[:par_pos1] + str(evaluate(par_exp)) + exp[par_pos2 + 1:]
-        return evaluate(exp)
+    return evaluate(exp)
 
 def evaluate(exp):
     if "+" in exp:
