@@ -1,10 +1,12 @@
 
 def brac(exp):
-    while exp.find('(') != -1:
-        par_pos1 = exp.find('(')
-        par_pos2 = exp.find(')', par_pos1)
-        par_exp = exp[par_pos1 + 1:par_pos2]
-        exp = exp[:par_pos1] + str(evaluate(par_exp)) + exp[par_pos2 + 1:]
+    while "(" in exp:
+        c_brac = o_pos = exp.index(")")
+        while exp[o_pos] != "(":
+            o_pos -= 1
+        o_brac = o_pos
+        brac_exp = exp[o_brac+1 : c_brac]
+        exp = exp[:o_brac] + str(evaluate(brac_exp)) + exp[c_brac + 1:]
     return evaluate(exp)
 
 def evaluate(exp):
