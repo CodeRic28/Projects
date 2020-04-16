@@ -13,8 +13,8 @@ def brac(exp): ##This function evaluates the expression inside parentheses
             i = p + 1
             i_right = brac_exp[i+1:]
             brac_exp = p_left + '3.14' + i_right
-        if brac_exp == 'pi':
-            brac_exp = '3.14'
+        # if brac_exp[0] == '-':
+        #     brac_exp = brac_exp[1:]
         if '*-' in brac_exp or '/-' in brac_exp or '--' in exp or '+-' in exp:
             val = neg(brac_exp)
             exp = exp[:o_brac] + str(val) + exp[c_brac + 1:]
@@ -34,6 +34,10 @@ def lft(exp, pos):
 #This function identifies the number to the right of the operator
 def rgt(exp, pos):
     i = pos+1
+    # if exp[i] == '-':
+    #     i = i+1
+    # if len(exp)+1 < i:
+    #     exp = exp + ''
     while exp[i].isnumeric() is True or exp[i] == '.' or exp[i] == 'p' or exp[i] == 'i':
         i=i+1
         if i >= len(exp):
@@ -95,6 +99,10 @@ def neg(exp):
         exp = stmin(exp, '+')
     elif '--' in exp:
         exp = stmin(exp, '-')
+    elif 'n-' in exp:
+        exp = stmin(exp, 'n')
+    elif 's-' in exp:
+        exp = stmin(exp, 's')
     return exp
 
 #This function checks if there are two or more '-' sign in an expression
@@ -130,6 +138,8 @@ def sin(exp, pos_op): #Solves sin function
     sin = exp[pos_op:nos + 1]
     left = exp[:pos_op]
     sin_exp = rgt(exp, nos)
+    # if exp[nos+3] == '-':
+
     if sin_exp == 'pi' or sin_exp == 'pi radians' or sin_exp == '3.14':
         sin_exp = '3.14'
         val = math.sin(float(sin_exp))
@@ -139,7 +149,7 @@ def sin(exp, pos_op): #Solves sin function
     return val
 
 def evaluate(exp): #This is the function in which to expression actually executes
-    if '*-' in exp or '/-' in exp or '^-' in exp or '--' in exp or '+-' in exp:
+    if '*-' in exp or '/-' in exp or '^-' in exp or '--' in exp or '+-' in exp or 'n-' in exp or 's-' in exp:
         exp = neg(exp)
         if type(exp) is float:
             exp = str(exp)
