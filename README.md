@@ -1,4 +1,4 @@
-# Beginner Projects
+# Beginner Python Projects
 ## Dungeon World:
 A Text based adventure game
 
